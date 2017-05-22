@@ -12,6 +12,7 @@ export default class Header extends React.Component<any,any>{
                     <ul className="nav navbar-nav">
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/about">About</Link></li>
+                        <li><Link to="/courses">Courses</Link></li>
                     </ul>
                 </div>
             </nav>
