@@ -4,10 +4,18 @@ import CourseForm from "./course-form";
 import * as courseActions from './actions/course-actions';
 import { Course } from "./shared/course";
 
-class Courses extends React.Component<any, any> {
-    state = {
-        course: new Course()
-    }
+interface State{
+    courses: []
+}
+
+interface Props{
+    dispatch: any;
+    courses: []
+}
+
+export class Courses extends React.Component<Props, any> {
+
+    state = { course: new Course() }
 
     constructor(){
         super();
@@ -15,7 +23,9 @@ class Courses extends React.Component<any, any> {
     }
 
     onClickSave(course) {
-        this.props.dispatch(courseActions.CreateCourse(course));
+        console.log("COURSE FROM PAGE: ", course)
+        this.setState({ course: course })
+        this.props.dispatch(courseActions.CreateCourse(this.state.course));
     }
 
     render(){
@@ -23,7 +33,7 @@ class Courses extends React.Component<any, any> {
             <div>
                 <h1>Courses</h1>
                 <CourseForm 
-                    course={this.state.course}
+                    courses={this.state.courses}
                     onClickSave={this.onClickSave} />
             </div>
         )
@@ -31,6 +41,7 @@ class Courses extends React.Component<any, any> {
 }
 
 function mapStateToProps(state, ownProps){
+    console.log("STATE FROM MAP: ", state.courses)
     return {
         courses: state.courses
     }

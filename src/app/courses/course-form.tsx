@@ -3,7 +3,7 @@ import { Course } from "./shared/course";
 
 interface Props {
     onClickSave: any,
-    course: Course
+    courses: []
 }
 
 interface State {
@@ -27,13 +27,21 @@ export default class CourseForm extends React.Component<Props, any> {
         this.setState({ course: course });
     }
 
-    onClickSave(){
+    onClickSave() {
         this.props.onClickSave(this.state.course);
+    }
+
+    courseRow(course, index) {
+        return (
+            <div key={index}>{course.title}</div>
+        )
     }
 
     render() {
         return (
             <div>
+                <h1>Courses</h1>
+                {this.props.courses.map(this.courseRow)}
                 <h2>Add Course</h2>
                 <input type="text"
                     onChange={this.onTitleChange}
