@@ -1,19 +1,27 @@
 import * as React from "react";
+import { CourseListRow } from './course-list-row';
 
-export default class CourseList extends React.Component<any, any> {
-
-    courseRow(course, index) {
-        return (
-            <div key={index}>{course.title}</div>
-        )
-    }
-
-    render() {
+export const CourseList = ({courses}) => {
         return (
             <div>
                 <h2>Course List</h2>
-                {this.props.courses.map(this.courseRow)}
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th>Title</th>
+                            <th>Autor</th>
+                            <th>Category</th>
+                            <th>Length</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {courses.map(course => 
+                            <CourseListRow key={course.id} course={course} />
+                        )}
+                    </tbody>
+                </table>
             </div>
         )
-    }
+
 }

@@ -1,6 +1,6 @@
 export class Course {
     id: string;
-    title: string = '';
+    title: string;
     watchHref: string;
     authorId: string;
     length: string;

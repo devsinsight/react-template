@@ -1,10 +1,9 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators, ActionCreatorsMapObject } from 'redux';
-import CourseForm from "./course-form";
 import * as courseActions from './actions/course-actions';
 import { Course } from "./shared/course";
-import CourseList from "./course-list";
+import { CourseList } from "./course-list";
 
 interface Props {
     actions: any;
@@ -26,7 +25,6 @@ export class Courses extends React.Component<Props, any> {
         return (
             <div>
                 <CourseList courses={this.props.courses} />
-                <CourseForm onClickSave={this.onClickSave} />
             </div>
         )
     }
