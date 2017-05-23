@@ -1,7 +1,7 @@
 import { Course } from "../shared/course";
 import { ActionCreator } from "redux";
-import { CREATE_COURSE } from "./action-types";
+import * as TYPES from "./action-types";
 
 export function createCourse(course: Course) {
-    return { type: CREATE_COURSE, course }
+    return { type: TYPES.CREATE_COURSE, course }
 }
