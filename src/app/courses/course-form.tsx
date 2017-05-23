@@ -7,7 +7,7 @@ interface Props {
 
 export default class CourseForm extends React.Component<Props, any> {
     state = {
-        course: new Course('')
+        course: new Course()
     }
 
     constructor() {

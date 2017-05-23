@@ -1,9 +1,8 @@
 export class Course {
-
-    title: string
-
-    constructor(title: string) {
-        this.title = title;
-    }
-
+    id: string;
+    title: string;
+    watchHref: string;
+    authorId: string;
+    length: string;
+    category: string;
 }
