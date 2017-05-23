@@ -1,13 +1,14 @@
 import * as React from "react";
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { bindActionCreators, ActionCreatorsMapObject } from 'redux';
 import CourseForm from "./course-form";
 import * as courseActions from './actions/course-actions';
-import {Course} from "./shared/course";
+import { Course } from "./shared/course";
 import CourseList from "./course-list";
 
 interface Props {
-    dispatch : any;
-    courses : Course[]
+    actions: any;
+    courses: Course[]
 }
 
 export class Courses extends React.Component<Props, any> {
@@ -18,21 +19,30 @@ export class Courses extends React.Component<Props, any> {
     }
 
     onClickSave(course) {
-        this.props.dispatch(courseActions.CreateCourse(course));
+        this.props.actions.createCourse(course);
     }
 
     render() {
         return (
             <div>
                 <CourseList courses={this.props.courses} />
-                <CourseForm onClickSave={this.onClickSave}/>
+                <CourseForm onClickSave={this.onClickSave} />
             </div>
         )
     }
+
+    static mapStateToProps(state, ownProps) {
+        return { courses: state.courses }
+    }
+
+    static mapDispatchToProps(dispatch) {
+        return {
+            actions: {
+                createCourse: bindActionCreators(courseActions.createCourse, dispatch)
+            }
+
+        }
+    }
 }
 
-function mapStateToProps(state, ownProps) {
-    return { courses: state.courses }
-}
-
-export default connect(mapStateToProps)(Courses);
+export default connect(Courses.mapStateToProps, Courses.mapDispatchToProps)(Courses);

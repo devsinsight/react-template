@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default class CourseList extends React.Component<any, any > {
+export default class CourseList extends React.Component<any, any> {
 
     courseRow(course, index) {
         return (

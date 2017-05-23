@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export default class Home extends React.Component<any, any>{
-    render(){
+    render() {
         return (
             <div className="jumbotron">
                 <h1>Hello there!</h1>

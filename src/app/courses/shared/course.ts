@@ -1,9 +1,9 @@
-export class Course{
-    
+export class Course {
+
     title: string
 
-    constructor(title: string){
+    constructor(title: string) {
         this.title = title;
     }
-    
+
 }
