@@ -6,7 +6,7 @@ import open from 'open';
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
-const port = 3007;
+const port = 3006;
 const app = express();
 const compiler = webpack(config);
 
