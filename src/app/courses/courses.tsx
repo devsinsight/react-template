@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from 'react-redux';
-import { bindActionCreators, ActionCreatorsMapObject } from 'redux';
+import { bindActionCreators } from 'redux';
 import * as courseActions from './actions/course-actions';
 import { Course } from "./shared/course";
 import { CourseList } from "./course-list";
@@ -37,11 +37,11 @@ export class Courses extends React.Component<Props, any> {
         )
     }
 
-    static mapStateToProps(state, ownProps) {
+    private static mapStateToProps(state, ownProps) {
         return { courses: state.courses }
     }
 
-    static mapDispatchToProps(dispatch) {
+    private static mapDispatchToProps(dispatch) {
         return {}
     }
 

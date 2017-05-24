@@ -79,7 +79,7 @@ export class CourseManager extends React.Component<Props, State> {
     static connection() {
         return connect(
             CourseManager.mapStateToProps,
-            CourseManager.mapDispatchToProps,
+            CourseManager.mapDispatchToProps
         )(CourseManager);
     }
 }
