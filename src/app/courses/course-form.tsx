@@ -23,7 +23,7 @@ export const CourseForm = (props: Props) => {
                     onChange={props.onChange}
                     error={props.errors.title} />
                 <SelectInput
-                    name="author"
+                    name="authorId"
                     label="Author"
                     value={props.course.authorId}
                     defaultOption="Select Author"
@@ -55,4 +55,3 @@ export const CourseForm = (props: Props) => {
             </form>
         )
 }
-

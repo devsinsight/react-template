@@ -2,7 +2,7 @@ import { Course } from './../courses/shared/course';
 import delay from './delay';
 
 const courses = [
-  Object.assign(new Course(),{
+  Object.assign(new Course,{
     id: "react-flux-building-applications",
     title: "Building Applications in React and Flux",
     watchHref: "http://www.pluralsight.com/courses/react-flux-building-applications",
@@ -10,7 +10,7 @@ const courses = [
     length: "5:08",
     category: "JavaScript"
   }),
-  Object.assign(new Course(),{
+  Object.assign(new Course,{
     id: "clean-code",
     title: "Clean Code: Writing Code for Humans",
     watchHref: "http://www.pluralsight.com/courses/writing-clean-code-humans",
@@ -18,7 +18,7 @@ const courses = [
     length: "3:10",
     category: "Software Practices"
   }),
-  Object.assign(new Course(),{
+  Object.assign(new Course,{
     id: "architecture",
     title: "Architecting Applications for the Real World",
     watchHref: "http://www.pluralsight.com/courses/architecting-applications-dotnet",
@@ -26,7 +26,7 @@ const courses = [
     length: "2:52",
     category: "Software Architecture"
   }),
-  Object.assign(new Course(),{
+  Object.assign(new Course,{
     id: "career-reboot-for-developer-mind",
     title: "Becoming an Outlier: Reprogramming the Developer Mind",
     watchHref: "http://www.pluralsight.com/courses/career-reboot-for-developer-mind",
@@ -34,7 +34,7 @@ const courses = [
     length: "2:30",
     category: "Career"
   }),
-  Object.assign(new Course(),{
+  Object.assign(new Course,{
     id: "web-components-shadow-dom",
     title: "Web Component Fundamentals",
     watchHref: "http://www.pluralsight.com/courses/web-components-shadow-dom",

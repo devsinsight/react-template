@@ -7,7 +7,7 @@ export default class Header extends React.Component<any, any>{
             <nav className="navbar navbar-default">
                 <div className="container-fluid">
                     <Link to="/" className="navbar-brand">
-                        <img src="images/dbzlogo.png" width="24" alt="Dragon Ball Z" />
+                        <img src="./images/dbzlogo.png" width="24" alt="Dragon Ball Z" />
                     </Link>
                     <ul className="nav navbar-nav">
                         <li><Link to="/">Home</Link></li>

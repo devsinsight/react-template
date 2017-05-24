@@ -5,25 +5,33 @@ import * as courseActions from './actions/course-actions';
 import { Course } from "./shared/course";
 import { CourseList } from "./course-list";
 
+
 interface Props {
     actions: any;
-    courses: Course[]
+    courses: Course[],
+    history: any
 }
 
 export class Courses extends React.Component<Props, any> {
 
-    constructor() {
+    constructor(){
         super();
-        this.onClickSave = this.onClickSave.bind(this);
+        this.redirectToAddCourse = this.redirectToAddCourse.bind(this);
     }
 
-    onClickSave(course) {
-        this.props.actions.createCourse(course);
+    redirectToAddCourse(event){
+        this.props.history.push('/course');
     }
 
     render() {
         return (
             <div>
+                <h2>Course List</h2>
+                <input 
+                    type="submit"
+                    value="Add Course"
+                    className="btn btn-primary"
+                    onClick={this.redirectToAddCourse}/>
                 <CourseList courses={this.props.courses} />
             </div>
         )
@@ -34,13 +42,12 @@ export class Courses extends React.Component<Props, any> {
     }
 
     static mapDispatchToProps(dispatch) {
-        return {
-            actions: {
-                createCourse: bindActionCreators(courseActions.createCourse, dispatch)
-            }
+        return {}
+    }
 
-        }
+    static connection() {
+        return connect(Courses.mapStateToProps, Courses.mapDispatchToProps)(Courses);
     }
 }
 
-export default connect(Courses.mapStateToProps, Courses.mapDispatchToProps)(Courses);
+export default Courses.connection();

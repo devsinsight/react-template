@@ -7,42 +7,77 @@ import { Course } from "./shared/course";
 import { CourseValidation } from "../validations/course-validation";
 import { DropdownUtils } from "../common/utils/dropdown-utils";
 import { Author } from './shared/author';
+import { UrlUtils } from "../common/utils/url-utils";
 
-interface State{
-    course: Course
-}
+export class CourseManager extends React.Component<Props, State> {
 
-export class CourseManager extends React.Component<any, State> {
-    state = {
-        course: Object.assign(new Course, this.props.course),
-        errors: new CourseValidation()
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            course: Object.assign(new Course, props.course),
+            errors: new CourseValidation()
+        }
+
+        this.updateCourseState = this.updateCourseState.bind(this);
+        this.saveCourse = this.saveCourse.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps){
+        let courseId = UrlUtils.getUrlParams();
+
+        if(courseId)
+            this.setState({ course: Object.assign(new Course, nextProps.course)});
+    }
+
+    updateCourseState(event) {
+        let field = event.target.name;
+        let course = this.state.course;
+        course[field] = event.target.value;
+        return this.setState({ course: course });
+    }
+
+    saveCourse(event) {
+        event.preventDefault();
+        if(!this.state.course.id)
+            this.props.actions.createCourse(this.state.course);
+        else
+            this.props.actions.updateCourse(this.state.course);
+
+        this.props.history.push('/courses');
     }
 
     public render() {
         return (
             <div>
                 <h1>Manage Course</h1>
-                <CourseForm 
+                <CourseForm
                     course={this.state.course}
                     errors={this.state.errors}
-                    allAuthors={[]} />
+                    allAuthors={this.props.authors}
+                    onChange={this.updateCourseState}
+                    onSave={this.saveCourse} />
             </div>
         );
     }
 
-    private static mapStateToProps(state: any) {
-        
-        let authorsFormattedForDropdown = DropdownUtils.dropdownFormatter(state.authors ,'fullName', 'id');
 
+
+    private static mapStateToProps(state: any, ownProps: any) {
+        let courseId = UrlUtils.getUrlParams();
+        let course = new Course();
+        if (courseId) course = state.courses.find((course: Course) => course.id === courseId);
         return {
-            authors: authorsFormattedForDropdown
+            course: course,
+            authors: DropdownUtils.dropdownFormatter(state.authors, 'fullName', 'id')
         };
     };
 
     private static mapDispatchToProps(dispatch: Dispatch<any>) {
         return {
             actions: {
-                createCourse: bindActionCreators(courseActions.createCourse, dispatch)
+                createCourse: bindActionCreators(courseActions.createCourseSuccess, dispatch),
+                updateCourse: bindActionCreators(courseActions.updateCourseSuccess, dispatch)
             }
         };
     };
@@ -56,3 +91,20 @@ export class CourseManager extends React.Component<any, State> {
 }
 
 export default CourseManager.connection();
+
+interface CourseActions {
+    createCourse: Function,
+    updateCourse: Function
+}
+
+interface Props {
+    authors: Author[],
+    course: Course,
+    actions: CourseActions,
+    history: any
+}
+
+interface State {
+    course: Course,
+    errors: CourseValidation
+}

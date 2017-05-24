@@ -1,41 +1,43 @@
-import express from 'express';
+import browserSync from 'browser-sync';
+import historyApiFallback from 'connect-history-api-fallback';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpack from 'webpack';
-import path from 'path';
 import config from './webpack.config.babel';
-import open from 'open';
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
 
-const port = 3005;
-const app = express();
-const compiler = webpack(config);
+const bundler = webpack(config);
 
-app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    noInfo: false,
-    quiet: false,
-    stats: {
-        assets: false,
-        colors: true,
-        version: false,
-        hash: false,
-        timings: false,
-        chunks: false,
-        chunkModules: false
-    }
-}));
+browserSync({
+  port: 3005,
+  ui: {
+    port: 3001
+  },
+  server: {
+    baseDir: 'src',
 
-app.use(webpackHotMiddleware(compiler));
+    middleware: [
+      historyApiFallback(),
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './src/index.html'))
+      webpackDevMiddleware(bundler, {
+        publicPath: config.output.publicPath,
+
+        noInfo: false,
+        quiet: false,
+        stats: {
+          assets: false,
+          colors: true,
+          version: false,
+          hash: false,
+          timings: false,
+          chunks: false,
+          chunkModules: false
+        },
+      }),
+
+      webpackHotMiddleware(bundler)
+    ]
+  },
+  files: [
+    'src/*.html'
+  ]
 });
-
-app.listen(port, (err) => {
-    if (err) 
-        console.error(err);
-    else 
-        open(`http://localhost:${port}`);
-
-    }
-);

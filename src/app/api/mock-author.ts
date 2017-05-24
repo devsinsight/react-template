@@ -1,21 +1,22 @@
+import { Author } from './../courses/shared/author';
 import delay from './delay';
 
 const authors = [
-  {
+  Object.assign(new Author,{
     id: 'cory-house',
     firstName: 'Cory',
     lastName: 'House'
-  },
-  {
+  }),
+   Object.assign(new Author,{
     id: 'scott-allen',
     firstName: 'Scott',
     lastName: 'Allen'
-  },
-  {
+  }),
+   Object.assign(new Author,{
     id: 'dan-wahlin',
     firstName: 'Dan',
     lastName: 'Wahlin'
-  }
+  })
 ];
 
 const generateId = (author) => {

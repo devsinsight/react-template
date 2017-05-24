@@ -3,8 +3,6 @@ import { CourseListRow } from './course-list-row';
 
 export const CourseList = ({courses}) => {
         return (
-            <div>
-                <h2>Course List</h2>
                 <table className="table">
                     <thead>
                         <tr>
@@ -21,7 +19,6 @@ export const CourseList = ({courses}) => {
                         )}
                     </tbody>
                 </table>
-            </div>
         )
 
 }
