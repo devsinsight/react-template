@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import * as courseActions from './actions/course-actions';
 import { bindActionCreators } from "redux";
 import { CourseForm } from "./course-form";
 import { Course } from "./shared/course";
@@ -8,6 +7,7 @@ import { CourseValidation } from "../validations/course-validation";
 import { DropdownUtils } from "../common/utils/dropdown-utils";
 import { Author } from './shared/author';
 import { UrlUtils } from "../common/utils/url-utils";
+import { saveCourse } from "./actions/course-thunks";
 
 export class CourseManager extends React.Component<Props, State> {
 
@@ -23,11 +23,10 @@ export class CourseManager extends React.Component<Props, State> {
         this.saveCourse = this.saveCourse.bind(this);
     }
 
-    componentWillReceiveProps(nextProps){
-        let courseId = UrlUtils.getUrlParams();
+    componentWillReceiveProps(nextProps) {
 
-        if(courseId)
-            this.setState({ course: Object.assign(new Course, nextProps.course)});
+        if (nextProps.course)
+            this.setState({ course: Object.assign(new Course, nextProps.course) });
     }
 
     updateCourseState(event) {
@@ -39,11 +38,7 @@ export class CourseManager extends React.Component<Props, State> {
 
     saveCourse(event) {
         event.preventDefault();
-        if(!this.state.course.id)
-            this.props.actions.createCourse(this.state.course);
-        else
-            this.props.actions.updateCourse(this.state.course);
-
+        this.props.actions.saveCourse(this.state.course);
         this.props.history.push('/courses');
     }
 
@@ -76,8 +71,7 @@ export class CourseManager extends React.Component<Props, State> {
     private static mapDispatchToProps(dispatch: Dispatch<any>) {
         return {
             actions: {
-                createCourse: bindActionCreators(courseActions.createCourseSuccess, dispatch),
-                updateCourse: bindActionCreators(courseActions.updateCourseSuccess, dispatch)
+                saveCourse: bindActionCreators(saveCourse, dispatch)
             }
         };
     };
@@ -93,8 +87,7 @@ export class CourseManager extends React.Component<Props, State> {
 export default CourseManager.connection();
 
 interface CourseActions {
-    createCourse: Function,
-    updateCourse: Function
+    saveCourse: Function
 }
 
 interface Props {

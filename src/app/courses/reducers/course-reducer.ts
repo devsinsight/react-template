@@ -3,9 +3,10 @@ import { CREATE_COURSE_SUCCESS } from './../actions/action-types';
 import * as TYPES from "../actions/action-types";
 import initialState from './initial-state';
 
-export default function CourseReducer(state = initialState.courses, action: any) {
+export default function courseReducer(state = initialState.courses, action: any) {
     switch (action.type) {
         case TYPES.CREATE_COURSE_SUCCESS:
+        console.log(action.course)
             return [
                 ...state,
                 Object.assign(new Course, action.course)

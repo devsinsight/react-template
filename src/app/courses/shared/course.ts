@@ -5,4 +5,5 @@ export class Course {
     authorId: string = '';
     length: string = '';
     category: string = '';
+
 }

@@ -61,8 +61,9 @@ class CourseApi {
     });
   }
 
-  static saveCourse(course) {
-    course = Object.assign({}, course);
+  static saveCourse(course: Course) {
+    course = Object.assign(new Course, course);
+
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const minCourseTitleLength = 1;
@@ -74,11 +75,10 @@ class CourseApi {
           const existingCourseIndex = courses.findIndex(a => a.id == course.id);
           courses.splice(existingCourseIndex, 1, course);
         } else {
-          course.id = generateId(course);
+          course.id = generateId(course).toLowerCase();
           course.watchHref = `http://www.pluralsight.com/courses/${course.id}`;
           courses.push(course);
         }
-
         resolve(course);
       }, delay);
     });
