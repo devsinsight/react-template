@@ -1,6 +1,6 @@
 import { Course } from './../shared/course';
 import courseApi from '../../api/mock-course';
-import { beginAjaxCall } from './ajax-status-actions';
+import { beginAjaxCall, ajaxCallError } from './ajax-status-actions';
 import { loadCoursesSuccess, updateCourseSuccess, createCourseSuccess } from "./course-actions";
 
 export function loadCourses() {
@@ -11,6 +11,7 @@ export function loadCourses() {
                 dispatch(loadCoursesSuccess(courses))
             })
             .catch(error => {
+                dispatch(ajaxCallError(error));
                 throw (error);
             })
     }
@@ -26,6 +27,7 @@ export function saveCourse(course: Course) {
                     dispatch(createCourseSuccess(savedCourse));
             })
             .catch(error => {
+                dispatch(ajaxCallError(error));
                 throw (error);
             })
     }
