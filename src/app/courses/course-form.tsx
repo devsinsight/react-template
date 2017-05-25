@@ -49,7 +49,7 @@ export const CourseForm = (props: Props) => {
                     type="submit" 
                     disabled={props.saving} 
                     value={props.saving ? 'Saving...' : 'Save'} 
-                    className="btn btn-rpimary" 
+                    className="btn btn-primary" 
                     onClick={props.onSave} />
 
             </form>

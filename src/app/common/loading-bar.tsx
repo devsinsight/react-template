@@ -26,7 +26,7 @@ export default class LoadingBar extends React.Component<Props, State>{
     render() {
 
         return (
-            <div style={{ position: "relative", top: "-30px" }}>
+            <div style={{ position: "absolute", top: "40px", width: "100%" }}>
                 <Line percent={this.state.frame} strokeWidth="4" strokeColor="#2db7f5" strokeLinecap="square" style={{ height: "5px", width: "100%" }} />
             </div>
         )
