@@ -50,7 +50,11 @@ export default {
   },
   target : 'web',
   resolve : {
-    extensions: ["*", ".tsx", ".ts", ".js", "json"]
+    extensions: ["*", ".tsx", ".ts", ".js", "json"],
+    alias:{
+      src: path.resolve(__dirname, "src"),
+      test: path.resolve(__dirname, "test")
+    }
   },
   devtool : 'eval-source-map',
   plugins : [

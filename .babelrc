@@ -1,9 +1,23 @@
 {
-    "presets": [ "es2015", "react" ],
+    "presets": [
+        "es2015",
+        "react"
+    ],
+    "plugins": [
+        "transform-decorators-legacy"
+    ],
     "env": {
         "development": {
             "presets": [
                 "react-hmre"
+            ],
+            "plugins": [
+                [
+                    "babel-plugin-webpack-alias",
+                    {
+                        "config": "./webpack.config.babel.js"
+                    }
+                ]
             ]
         }
     }
