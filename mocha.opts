@@ -1,4 +1,4 @@
---compilers ts:babel-core/register
+--compilers ts:ts-node/register -r tsconfig-paths/register
 --reporter spec
 --watch-extensions tsx,ts 
 test/**/*-test.tsx
