@@ -4,6 +4,7 @@ import About from "./about/about";
 import { Route, Switch } from 'react-router-dom';
 import Courses from "./courses/courses";
 import CourseManager from './courses/course-manager';
+import EditReadonly from './demos/edit-readonly';
 
 export default class AppRoutes extends React.Component<any, any> {
     render() {
@@ -14,6 +15,7 @@ export default class AppRoutes extends React.Component<any, any> {
                 <Route path="/courses" component={Courses} />
                 <Route path="/course" component={CourseManager} />
                 <Route path="/course/:id" component={CourseManager} />
+                <Route path="/demos" component={EditReadonly} />
             </Switch>
         );
 

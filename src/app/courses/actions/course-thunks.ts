@@ -1,14 +1,17 @@
 import { Course } from './../shared/course';
 import courseApi from '../../api/mock-course';
+import { beginAjaxCall, ajaxCallError } from './ajax-status-actions';
 import { loadCoursesSuccess, updateCourseSuccess, createCourseSuccess } from "./course-actions";
 
 export function loadCourses() {
     return (dispatch) => {
+        dispatch(beginAjaxCall());
         return courseApi.getAllCourses()
             .then((courses: Course[]) => {
                 dispatch(loadCoursesSuccess(courses))
             })
             .catch(error => {
+                dispatch(ajaxCallError(error));
                 throw (error);
             })
     }
@@ -16,6 +19,7 @@ export function loadCourses() {
 
 export function saveCourse(course: Course) {
     return (dispatch, getState) => {
+        dispatch(beginAjaxCall());
         return courseApi.saveCourse(course)
             .then((savedCourse: Course) => {
                 course.id ?
@@ -23,6 +27,7 @@ export function saveCourse(course: Course) {
                     dispatch(createCourseSuccess(savedCourse));
             })
             .catch(error => {
+                dispatch(ajaxCallError(error));
                 throw (error);
             })
     }

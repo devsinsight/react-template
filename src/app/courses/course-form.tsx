@@ -8,7 +8,7 @@ interface Props{
     allAuthors: any, 
     onSave?: any, 
     onChange?: any, 
-    loading?: boolean, 
+    saving?: boolean, 
     errors: any
 }
 
@@ -47,9 +47,9 @@ export const CourseForm = (props: Props) => {
                     error={props.errors.length} />
                 <input 
                     type="submit" 
-                    disabled={props.loading} 
-                    value={props.loading ? 'Saving...' : 'Save'} 
-                    className="btn btn-rpimary" 
+                    disabled={props.saving} 
+                    value={props.saving ? 'Saving...' : 'Save'} 
+                    className="btn btn-primary" 
                     onClick={props.onSave} />
 
             </form>

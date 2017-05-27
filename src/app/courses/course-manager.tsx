@@ -8,6 +8,8 @@ import { DropdownUtils } from "../common/utils/dropdown-utils";
 import { Author } from './shared/author';
 import { UrlUtils } from "../common/utils/url-utils";
 import { saveCourse } from "./actions/course-thunks";
+import * as toastr from 'toastr';
+import { ajaxCallError } from "./actions/ajax-status-actions";
 
 export class CourseManager extends React.Component<Props, State> {
 
@@ -16,11 +18,13 @@ export class CourseManager extends React.Component<Props, State> {
 
         this.state = {
             course: Object.assign(new Course, props.course),
-            errors: new CourseValidation()
+            errors: new CourseValidation(),
+            saving: false
         }
 
         this.updateCourseState = this.updateCourseState.bind(this);
         this.saveCourse = this.saveCourse.bind(this);
+        this.redirect = this.redirect.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -38,7 +42,20 @@ export class CourseManager extends React.Component<Props, State> {
 
     saveCourse(event) {
         event.preventDefault();
-        this.props.actions.saveCourse(this.state.course);
+        this.setState({saving: true});
+        this.props.actions.saveCourse(this.state.course)
+            .then(this.redirect)
+            .catch( error => {
+                toastr.error(error);
+                this.setState({saving: false });
+                this.props.actions.ajaxCallError(error);
+            });
+
+    }
+
+    redirect() {
+        this.setState({saving: false });
+        toastr.success('Course saved');
         this.props.history.push('/courses');
     }
 
@@ -51,7 +68,8 @@ export class CourseManager extends React.Component<Props, State> {
                     errors={this.state.errors}
                     allAuthors={this.props.authors}
                     onChange={this.updateCourseState}
-                    onSave={this.saveCourse} />
+                    onSave={this.saveCourse}
+                    saving={this.state.saving} />
             </div>
         );
     }
@@ -71,7 +89,8 @@ export class CourseManager extends React.Component<Props, State> {
     private static mapDispatchToProps(dispatch: Dispatch<any>) {
         return {
             actions: {
-                saveCourse: bindActionCreators(saveCourse, dispatch)
+                saveCourse: bindActionCreators(saveCourse, dispatch),
+                ajaxCallError: bindActionCreators(ajaxCallError, dispatch)
             }
         };
     };
@@ -79,7 +98,7 @@ export class CourseManager extends React.Component<Props, State> {
     static connection() {
         return connect(
             CourseManager.mapStateToProps,
-            CourseManager.mapDispatchToProps,
+            CourseManager.mapDispatchToProps
         )(CourseManager);
     }
 }
@@ -87,7 +106,8 @@ export class CourseManager extends React.Component<Props, State> {
 export default CourseManager.connection();
 
 interface CourseActions {
-    saveCourse: Function
+    saveCourse: Function,
+    ajaxCallError: Function
 }
 
 interface Props {
@@ -99,5 +119,6 @@ interface Props {
 
 interface State {
     course: Course,
-    errors: CourseValidation
+    errors: CourseValidation,
+    saving: boolean
 }

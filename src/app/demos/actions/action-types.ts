@@ -1,0 +1,2 @@
+export const CHANGE_MODE_SUCCESS = 'CHANGE_MODE_SUCCESS';
+

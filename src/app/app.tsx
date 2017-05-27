@@ -1,33 +1,42 @@
 import * as React from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import configureStore from './store/config';
 import Home from './home/home';
 import AppRoutes from "./routes";
-import Header from "./header/header";
-import { loadCourses } from "./courses/actions/course-thunks";
-import { loadAuthors } from "./courses/actions/author-thunks";
+import { Header } from "./header/header";
+import { connect } from 'react-redux';
 
-const store = configureStore();
 
-//triggers initial value because there is a mock api :)
-store.dispatch(loadCourses())
-store.dispatch(loadAuthors())
-
-export default class App extends React.Component<any, any> {
+class App extends React.Component<Props, any> {
     render() {
         return (
-            <Provider store={store}>
                 <Router>
                     <div>
-                        <Header />
+                        <Header
+                            loading={this.props.loading} />
                         <div className="container">
                             <AppRoutes />
                         </div>
                     </div>
                 </Router>
-            </Provider>
         )
     }
 
+    private static mapStateToProps(state: any, ownProps: any){
+        return {
+            loading: state.ajaxCallsInProgress > 0
+        }
+    }
+
+    static connection(){
+        return connect(App.mapStateToProps)(App);
+    }
+
 }
+
+export default App.connection();
+
+interface Props{
+    loading: any
+}
+
