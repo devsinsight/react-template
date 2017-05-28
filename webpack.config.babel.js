@@ -5,24 +5,13 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
 import bootstrapEntryPoints from './webpack.bootstrap.config';
+import CompressionPlugin from 'compression-webpack-plugin'
 
 let isProd = process.env.NODE_ENV == "production";
 let cssDev = ['style-loader', 'css-loader?sourceMap', 'sass-loader'];
-let cssProd = ExtractTextPlugin.extract({
-  fallback: 'style-loader',
-  loader: [
-    'css-loader', 'sass-loader'
-  ],
-  publicPath: '/dist'
-});
-
-let cssConfig = isProd ?
-  cssProd :
-  cssDev;
-
-let bootstrapConfig = isProd ?
-  bootstrapEntryPoints.prod :
-  bootstrapEntryPoints.dev;
+let cssProd = ExtractTextPlugin.extract({ fallback: 'style-loader', loader: ['css-loader', 'sass-loader'], publicPath: '/dist'});
+let cssConfig = isProd ? cssProd : cssDev;
+let bootstrapConfig = isProd ? bootstrapEntryPoints.prod : bootstrapEntryPoints.dev;
 
 export default {
   entry: {
@@ -85,7 +74,14 @@ export default {
         context: '/',
         postcss: () => [autoprefixer]
       }
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
+    new CompressionPlugin({
+			algorithm: "gzip",
+			test: /\.(js|html)$/,
+			threshold: 10240,
+			minRatio: 0.8
+		})
   ],
   module: {
     rules: [{
