@@ -11,7 +11,7 @@ interface Props {
 
 export const TextInput = (props: Props) => {
     let wrapperClass = 'form-group';
-    wrapperClass += props.error && !props.error.length ? ' has-error' : '';
+    wrapperClass += props.error && props.error.length ? ' has-error' : '';
 
     return (
         <div className={wrapperClass}>
