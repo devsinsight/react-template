@@ -43,15 +43,13 @@ export class CourseManager extends React.Component<Props, State> {
     courseFormIsValid() {
         if (this.state.course.title.length < 5)
             this.state.errors.title = 'Title must be at least 5 characters.';
-
+        this.setState({ errors: this.state.errors });
         return this.state.errors.isValid();
     }
 
     saveCourse(event) {
         event.preventDefault();
-
-        if (this.courseFormIsValid()) return;
-
+        if (!this.courseFormIsValid()) return;
 
         this.setState({ saving: true });
         this.props.actions.saveCourse(this.state.course)
@@ -66,7 +64,11 @@ export class CourseManager extends React.Component<Props, State> {
 
     redirect() {
         this.setState({ saving: false });
-        toastr.success('Course saved');
+
+        if(!this.state.course.id)
+            toastr.success('Course saved');
+        else
+            toastr.success('Course updated');
         this.props.history.push('/courses');
     }
 
