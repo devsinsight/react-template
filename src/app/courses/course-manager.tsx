@@ -2,14 +2,14 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { CourseForm } from "./course-form";
-import { Course } from "./shared/course";
-import { CourseValidation } from "../validations/course-validation";
+import { Course } from "./models/course";
 import { DropdownUtils } from "../common/utils/dropdown-utils";
-import { Author } from './shared/author';
+import { Author } from './models/author';
 import { UrlUtils } from "../common/utils/url-utils";
 import { saveCourse } from "./actions/course-thunks";
 import * as toastr from 'toastr';
 import { ajaxCallError } from "./actions/ajax-status-actions";
+import { CourseValidation } from "src/app/courses/validations/course-validation";
 
 export class CourseManager extends React.Component<Props, State> {
 
@@ -40,21 +40,32 @@ export class CourseManager extends React.Component<Props, State> {
         return this.setState({ course: course });
     }
 
+    courseFormIsValid() {
+        if (this.state.course.title.length < 5)
+            this.state.errors.title = 'Title must be at least 5 characters.';
+
+        return this.state.errors.isValid();
+    }
+
     saveCourse(event) {
         event.preventDefault();
-        this.setState({saving: true});
+
+        if (this.courseFormIsValid()) return;
+
+
+        this.setState({ saving: true });
         this.props.actions.saveCourse(this.state.course)
             .then(this.redirect)
-            .catch( error => {
+            .catch(error => {
                 toastr.error(error);
-                this.setState({saving: false });
+                this.setState({ saving: false });
                 this.props.actions.ajaxCallError(error);
             });
 
     }
 
     redirect() {
-        this.setState({saving: false });
+        this.setState({ saving: false });
         toastr.success('Course saved');
         this.props.history.push('/courses');
     }
@@ -113,8 +124,8 @@ interface CourseActions {
 interface Props {
     authors: Author[],
     course: Course,
-    actions: CourseActions,
-    history: any
+    actions?: CourseActions,
+    history?: any
 }
 
 interface State {

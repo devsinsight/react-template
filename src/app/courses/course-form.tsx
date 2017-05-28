@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Course } from "./shared/course";
+import { Course } from "./models/course";
 import { SelectInput } from "../common/select-input";
 import { TextInput } from "../common/text-input";
 

@@ -1,4 +1,4 @@
-import { Course } from './../shared/course';
+import { Course } from './../models/course';
 import courseApi from '../../api/mock-course';
 import { beginAjaxCall, ajaxCallError } from './ajax-status-actions';
 import { loadCoursesSuccess, updateCourseSuccess, createCourseSuccess } from "./course-actions";

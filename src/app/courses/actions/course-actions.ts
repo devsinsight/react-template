@@ -1,4 +1,4 @@
-import { Course } from "../shared/course";
+import { Course } from "../models/course";
 import { ActionCreator } from "redux";
 import * as TYPES from "./action-types";
 

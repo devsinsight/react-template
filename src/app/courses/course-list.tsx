@@ -3,7 +3,7 @@ import { CourseListRow } from './course-list-row';
 
 export const CourseList = ({courses}) => {
         return (
-                <table className="table">
+                <table className="table table-responsive table-hover">
                     <thead>
                         <tr>
                             <th> </th>

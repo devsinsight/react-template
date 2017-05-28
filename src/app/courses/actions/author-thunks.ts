@@ -1,5 +1,5 @@
 import authorApi from '../../api/mock-author';
-import { Author } from "../shared/author";
+import { Author } from "../models/author";
 import { loadAuthorsSuccess } from "./author-actions";
 import { beginAjaxCall, ajaxCallError } from "./ajax-status-actions";
 

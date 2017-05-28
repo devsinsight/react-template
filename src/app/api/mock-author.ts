@@ -1,4 +1,4 @@
-import { Author } from './../courses/shared/author';
+import { Author } from './../courses/models/author';
 import delay from './delay';
 
 const authors = [

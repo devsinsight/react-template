@@ -1,4 +1,4 @@
-import { Course } from './../courses/shared/course';
+import { Course } from './../courses/models/course';
 import delay from './delay';
 
 const courses = [

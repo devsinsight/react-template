@@ -1,10 +1,10 @@
 export class CourseValidation{
-    id: string;
-    title: string;
-    watchHref: string;
-    authorId: string;
-    length: string;
-    category: string;
+    id: string = '';
+    title: string = '';
+    watchHref: string = '';
+    authorId: string = '';
+    length: string = '';
+    category: string = '';
 
     isValid(){
         return !(this.id.length + 

@@ -1,4 +1,4 @@
-import { Course } from './../shared/course';
+import { Course } from './../models/course';
 import { CREATE_COURSE_SUCCESS } from './../actions/action-types';
 import * as TYPES from "../actions/action-types";
 import initialState from './initial-state';
